@@ -1,0 +1,97 @@
+//qsort函数用来比较大小（int整形 float浮点型 struct结构体 etc）
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct str
+{
+	char name[20];
+	int age;
+};
+
+int cmp_int(const void* e1, const void* e2) //cmp_int 子函数放到test_int 子函数前面
+{
+	return *(int*)e1 - *(int*)e2;
+}
+
+int cmp_float(const void* e1, const void* e2)
+{
+	if (*(float*)e1 == *(float*)e2)
+		return 0;
+	else if (*(float*)e1 > *(float*)e2)
+		return 1;
+	else
+		return -1;
+}
+
+int cmp_struct_by_name(const void* e1, const void* e2)
+{
+	return strcmp(((struct str*)e1)->name, ((struct str*)e2)->name);
+}
+
+void cmp_struct_by_age(const void* e1, const void* e2)
+{
+	return ((struct str*)e1)->age - ((struct str*)e2)->age;
+}
+
+void test_int()
+{
+	int arr[10] = { 2,3,85,1,6,8,4,99,3,9 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	qsort(arr, sz, sizeof(arr[0]), cmp_int);//qsort 函数第一个元素代表数组名，第二个元素代表数组的长度，第三个元素代表该数组类型字节长度，第四个元素代表比较函数，用于返回数组
+	printf("int类型比较：\n");
+	for (int i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
+void test_float()
+{
+	float farr[10] = { 1.2,3.3,6.2,2.0,3.0,93.3,3.56,1.63,6.3,9.6 };
+	int fsz = sizeof(farr) / sizeof(farr[0]);
+	qsort(farr, fsz, sizeof(farr[0]), cmp_float);
+	printf("float类型比较：\n");
+	for (int i = 0; i < fsz; i++)
+	{
+		printf("%.2f ", farr[i]);
+	}
+	printf("\n");
+}
+
+void test_struct1()
+{
+	struct str s[3] = { {"zhangsan",32},{"lisi",22},{"zhaowu",30} };
+	int ssz = sizeof(s) / sizeof(s[0]);
+	qsort(s, ssz, sizeof(s[0]), cmp_struct_by_age);
+	printf("结构体中int类型比较：\n");
+	for (int i = 0; i < ssz; i++)
+	{
+		printf("%d ", s[i].age);
+	}
+	printf("\n");
+}
+
+void test_struct2()
+{
+	struct str s[3] = { {"zhangsan",32},{"lisi",22},{"zhaowu",30} };
+	int ssz = sizeof(s) / sizeof(s[0]);
+	qsort(s, ssz, sizeof(s[0]), cmp_struct_by_name);
+	printf("结构体中char类型比较：\n");
+	for (int i = 0; i < ssz; i++)
+	{
+		printf("%s ", s[i].name);
+	}
+	printf("\n");
+}
+
+int main()
+{
+	test_int();
+	test_float();
+	test_struct1();
+	test_struct2();
+
+	return 0;
+}
