@@ -1,0 +1,86 @@
+//回调函数--转移表
+
+#include<stdio.h>
+
+void main_scream(void)
+{
+	printf("*******************************\n");
+	printf("****1.Add      2.Sub     ******\n");
+	printf("****3.Mul      4.Div     ******\n");
+	printf("****0.Exit               ******\n");
+	printf("*******************************\n");
+}
+int Add(int a, int b)
+{
+	return a + b;
+}
+
+int Sub(int a, int b)
+{
+	return a - b;
+}
+
+int Mul(int a, int b)
+{
+	return a * b;
+}
+
+int Div(int a, int b)
+{
+	return a / b;
+}
+
+void Cala(int (*pf)(int, int))
+{
+	int a = 0, b = 0;
+	printf("请输入将要计算的两个数：");
+	scanf("%d%d", &a, &b);
+	printf("%d\n", (*pf)(a, b));
+}
+
+int main()
+{
+	int input = 0;
+	main_scream();
+	do
+	{
+		printf("请输入操作数：");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:Cala(Add);
+			break;
+		case 2:Cala(Sub);
+			break;
+		case 3:Cala(Mul);
+			break;
+		case 4:Cala(Div);
+			break;
+		case 0:printf("已退出！！！");
+			break;
+		default: printf("选择错误，请从新选择！！！\n");
+			break;
+		}
+	} while (input);
+
+	return 0;
+}
+
+//回调函数
+
+#include<stdio.h>
+
+void print(const char* str)
+{
+	printf("hehe:%s\n", str);
+}
+void test(void (*p)(const char*))
+{
+	printf("tset\n");
+	(*p)("hello world!");
+}
+int main()
+{
+	test(print);
+	return 0;
+}
