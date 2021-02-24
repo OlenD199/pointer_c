@@ -1,0 +1,45 @@
+#include<stdio.h>
+
+//void test1()
+//{
+//	int aa[2][5] = { 1,2,3,4,5,6,7,8,9,10 };
+//	//二维数组为两行四列，将该二维指针看成一个有两个元素的新指针，
+//
+//	int* ptr1 = (int*)(&aa + 1);//&aa表示这一新指针的整个地址，+1表示跳过该指针，即到10后面，再给ptr1-1可得10
+//	int* ptr2 = (int*)(*(aa + 1));//aa表示新指针的首元素地址，+1表示到新指针的第二个元素的地址，即6的地址，*(aa + 1)相当于aa[1]
+//									//所以ptr2指向的是6的地址，-1即为5
+//
+//	printf("%d,%d", *(ptr1 - 1), *(ptr2 - 1));//10,
+//
+//}
+
+//void test2()
+//{
+//	const char* a[] = { "work","at","alibaba" };//指针数组
+//	const char** pa = a;
+//
+//	pa++;
+//	printf("%s\n", *pa);
+//}
+
+void test3()
+{
+	const char* c[] = { "ENTER","NEW","POINT","FIRST" };
+	const char** cp[] = { c + 3,c + 2,c + 1,c };
+	const char*** cpp = cp;
+
+	printf("%s\n", **++cpp);//point
+	printf("%s\n", *-- * ++cpp + 3);//first
+	printf("%s\n", *cpp[-2] + 3);
+	printf("%s\n", cpp[-1][-1] + 1);
+
+}
+
+int main()
+{
+	//test1();
+	//test2();
+	test3();
+
+	return 0;
+}
